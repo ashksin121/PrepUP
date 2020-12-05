@@ -124,6 +124,53 @@ app.patch('/rejectCourse/:id', (req, res) => {
         res.status(400).json(err)
     })
 })
+///////////////////////                     CREATE PROFILE    /////////////////////////
+// SAMPLE
+// {
+//     "uid": "aaa1a",
+//     "data": {
+//         "avatar": "",
+//         "coursesCompleted": ["c201"],
+//         "coursesIncomplete": ["c203","c204"],
+//         "coursesUploaded": [],
+//         "name": "Abhi",
+//         "pepCoins": 1100
+//     }
+// }
+app.post('/createProfile', (req,res) => {
+    var prepRef = db.collection('prepup').doc('profiles');
+    var uid = req.body.uid;
+    var content={};
+    content[uid]=req.body.data;
+    var setWithMerge = prepRef.set(
+        content, { merge: true }
+    );
+    // console.log(data)
+    res.json("Profile created successfully!!")
+})
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+///////////////////////                     FETCH PROFILE    /////////////////////////
+// SAMPLE
+// {
+//     "uid": "aaa1a",
+// }
+app.get('/fetchProfile', (req,res) => {
+    var uid = req.body.uid;
+    db.collection('prepup').doc('profiles').get()
+    .then(doc => {
+        console.log(doc.data()[uid])
+        res.json(doc.data()[uid])
+    })
+    .catch(err => {
+        console.log("Error: ", err)
+        res.json(err)
+    })
+})
+//////////////////////////////////////////////////////////////////////////////////////////
+
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
