@@ -82,12 +82,77 @@ app.post('/createCourse', (req, res) => {
     })
 })
 
+const increaseCoins = async (id, newCoins) => {
+    const doc = await db.collection('prepup').doc('profiles').get()
+    let profile = doc.data()[id]
+    profile['pepCoins'] = profile['pepCoins'] + newCoins
+    const res = await db.collection('prepup').doc('profiles').update({[id]: profile})
+}
+
+const acceptCourseAndReward = async (userId, newCoins, courseId) => {
+    const doc = await db.collection('prepup').doc('profiles').get()
+    let profile = doc.data()[userId]
+    profile['pepCoins'] = profile['pepCoins'] + newCoins
+    profile['coursesUploaded'].push(courseId)
+    const res = await db.collection('prepup').doc('profiles').update({[userId]: profile})
+}
+
+/*
+    ACCEPT COURSE
+    req.body = {
+        "pepCoins": 7
+    }
+*/
+
 app.patch('/acceptCourse/:id', (req, res) => {
     const courseId = req.params.id
+    const newCoins = req.body.pepCoins
+    let instructorId = ""
     db.collection('prepup').doc('courses').get()
     .then(doc => {
         let course = doc.data()[courseId]
+        instructorId = course['instructorId']
         course['status'] = "ACCEPTED"
+        db.collection('prepup').doc('courses').update({[courseId]: course})
+        .then(doc => {
+            // console.log(doc)
+        })
+        .then(() => {
+            acceptCourseAndReward(instructorId, newCoins, courseId)
+            .then((doc) => {
+                res.status(200).send("Course Accepted")
+            })
+            .catch(err => {
+                console.log(err)
+                res.status(400).send("Some error occured in accepting course")
+            })
+        })
+        .catch(err => {
+            console.log("Error: ", err)
+            res.status(400).json(err)
+        })
+    })
+    .catch(err => {
+        console.log("Error: ", err)
+        res.status(400).json(err)
+    })
+})
+
+/*
+    REJECT COURSE
+    req.body = {
+        "comments": "Very poorly written"
+    }
+*/
+
+app.patch('/rejectCourse/:id', (req, res) => {
+    const courseId = req.params.id
+    const comments = req.body.comments
+    db.collection('prepup').doc('courses').get()
+    .then(doc => {
+        let course = doc.data()[courseId]
+        course['status'] = "REJECTED"
+        course['comments'] = comments
         db.collection('prepup').doc('courses').update({[courseId]: course})
         .then(doc=> {
             console.log(doc)
@@ -104,27 +169,87 @@ app.patch('/acceptCourse/:id', (req, res) => {
     })
 })
 
-app.patch('/rejectCourse/:id', (req, res) => {
-    const courseId = req.params.id
-    db.collection('prepup').doc('courses').get()
+/*
+    ADD COINS
+    req.body = {
+        "pepCoins": 100
+    }
+*/
+
+app.patch('/addCoins/:id', (req, res) => {
+    const userId = req.params.id
+    const newCoins = req.body.pepCoins
+    increaseCoins(userId, newCoins)
     .then(doc => {
-        let course = doc.data()[courseId]
-        course['status'] = "REJECTED"
-        db.collection('prepup').doc('courses').update({[courseId]: course})
-        .then(doc=> {
-            console.log(doc)
-            res.status(200).json(doc)
+        res.status(200).send("Coins Increased")
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(400).send("Some error occured")
+    })
+})
+
+/*
+    ADD PENDING COURSE
+    req.body = {
+        "courseId": "c102"
+    }
+*/
+
+app.patch('/addPendingCourse/:userId', (req, res) => {
+    const userId = req.params.userId
+    const courseId = req.body.courseId
+    db.collection('prepup').doc('profiles').get()
+    .then(doc => {
+        let profile = doc.data()[userId]
+        profile['coursesIncomplete'].push(courseId)
+        db.collection('prepup').doc('profiles').update({ [userId]: profile })
+        .then((doc) => {
+            res.status(200).send("Pending Course Added")
         })
         .catch(err => {
-            console.log("Error: ", err)
-            res.status(400).json(err)
+            res.status(400).send("Some error occured in update")
         })
     })
     .catch(err => {
-        console.log("Error: ", err)
-        res.status(400).json(err)
+        res.status(400).send("Some error occured in accessing profile")
     })
 })
+
+/*
+    ADD COMPLETED COURSE
+    req.body = {
+        "courseId": "c102",
+        "pepCoins": 100
+    }
+*/
+
+app.patch('/addCompletedCourse/:userId', (req, res) => {
+    const userId = req.params.userId
+    const courseId = req.body.courseId
+    const newCoins = req.body.pepCoins
+    db.collection('prepup').doc('profiles').get()
+    .then(doc => {
+        let profile = doc.data()[userId]
+        const index = profile['coursesIncomplete'].indexOf(courseId);
+        if (index > -1) {
+            profile['coursesIncomplete'].splice(index, 1);
+        }
+        profile['coursesCompleted'].push(courseId)
+        profile['pepCoins'] = profile['pepCoins'] + newCoins
+        db.collection('prepup').doc('profiles').update({ [userId]: profile })
+        .then((doc) => {
+            res.status(200).send("Completed Course Added")
+        })
+        .catch(err => {
+            res.status(400).send("Some error occured in update")
+        })
+    })
+    .catch(err => {
+        res.status(400).send("Some error occured in accessing profile")
+    })
+})
+
 ///////////////////////                     CREATE PROFILE    /////////////////////////
 // SAMPLE
 // {
