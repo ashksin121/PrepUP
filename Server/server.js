@@ -301,7 +301,7 @@ app.get('/fetchProfile', (req,res) => {
 ///////////////////////                     CREATE QUIZ    /////////////////////////
 // SAMPLE
 // {
-//     "uid": "aaa1a",
+//     "uid": "aaa1a",      //course id
 //     "data": [
 //         {
 //             "answer": 1,
@@ -337,7 +337,7 @@ app.post('/createQuiz', (req,res) => {
 ///////////////////////                     FETCH QUIZ    /////////////////////////
 // SAMPLE
 // {
-//     "uid": "aaa1a",
+//     "uid": "aaa1a",      //course id
 // }
 app.get('/fetchQuiz', (req,res) => {
     var uid = req.body.uid;
@@ -356,7 +356,7 @@ app.get('/fetchQuiz', (req,res) => {
 ///////////////////////                     FETCH RANDOM QUIZ    /////////////////////////
 // SAMPLE
 // {
-//     "uid": "aaa1a",
+//     "uid": "aaa1a",      //user id
 // }
 app.get('/fetchRandomQuiz', (req,res) => {
     var uid = req.body.uid;
