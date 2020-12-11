@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "999977673350",
+    "project_id": "prepup-c39de",
+    "storage_bucket": "prepup-c39de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:999977673350:android:1d4306ba74bbfa208b2707",
+        "android_client_info": {
+          "package_name": "com.vaibhav.prep_up"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "999977673350-7l6gtdi78b6v6a18m3clfpi3is5n47d5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vaibhav.prep_up",
+            "certificate_hash": "254ee85256ca4d230f71b9162fb93cb48f16edec"
+          }
+        },
+        {
+          "client_id": "999977673350-ehhcvpp1ev3uv3b6lftp0g2966gganat.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwG7WjHWrmHSg17KuB4prCSNZiA3RSgjI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "999977673350-ehhcvpp1ev3uv3b6lftp0g2966gganat.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
