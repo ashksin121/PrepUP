@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:prep_up/addcourse.dart';
-import 'package:prep_up/home.dart';
-import 'package:prep_up/signin.dart';
-import 'package:prep_up/teacher.dart';
+// import 'package:prep_up/addcourse.dart';
+// import 'package:prep_up/home.dart';
+// import 'package:prep_up/signin.dart';
+// import 'package:prep_up/teacher.dart';
 import './custom/signin.dart';
+import 'custom/student.dart';
+import 'custom/cards.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: SignInDemo(),
+      home: CarouselDemo(),
     );
   }
 }
