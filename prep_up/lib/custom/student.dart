@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 /// Flutter code sample for BottomNavigationBar
 
 // This example shows a [BottomNavigationBar] as it is used within a [Scaffold]
@@ -14,6 +16,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import './StudentCourses.dart';
+import './cards.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,27 +52,28 @@ class MyStatefulWidget extends StatefulWidget {
 
 /// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  void initState() {
-    super.initState();
-    WidgetsFlutterBinding.ensureInitialized();
-    Firebase.initializeApp().whenComplete(() => {
-          FirebaseFirestore.instance
-              .collection('prepup')
-              .doc("courses")
-              .get()
-              .then((value) => print(value))
-        });
-    // fx();
-  }
+  // void initState() {
+  //   super.initState();
+  //   WidgetsFlutterBinding.ensureInitialized();
+  //   Firebase.initializeApp().whenComplete(() => {
+  //         FirebaseFirestore.instance
+  //             .collection('prepup')
+  //             .doc("courses")
+  //             .get()
+  //             .then((value) => print(value))
+  //       });
+  //   // fx();
+  // }
 
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
+  static List<Widget> _widgetOptions = <Widget>[
+    // Text(
+    //   'Index 0: Home',
+    //   style: optionStyle,
+    // ),
+    CarouselDemo(),
     Text(
       'Index 1: Business',
       style: optionStyle,
@@ -85,24 +92,35 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
-    Future<DocumentSnapshot> user;
-    Firebase.initializeApp().whenComplete(() => {
-          FirebaseFirestore.instance
-              .collection('prepup')
-              .doc("courses")
-              .get()
-              .then((value) {
-            print(value.data());
-          })
-        });
+    // Future<DocumentSnapshot> user;
+    // Firebase.initializeApp().whenComplete(() => {
+    //       FirebaseFirestore.instance
+    //           .collection('prepup')
+    //           .doc("courses")
+    //           .get()
+    //           .then((value) {
+    //         print(value.data());
+    //       })
+    //     });
+
+    // Future<http.Response>  fetchAlbum() async {
+    // final response = http.get('http://localhost:8080/getAllCourses');
+    // print(response);
+    // return ();
+    // }
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('BottomNavigationBar Sample'),
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      body: _selectedIndex == -1
+          ? Column(
+              children: [CarouselDemo()],
+            )
+          : _widgetOptions.elementAt(_selectedIndex),
+
+      // child: _widgetOptions.elementAt(_selectedIndex),
+      // ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
