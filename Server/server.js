@@ -42,14 +42,11 @@ app.get('/getAllCourses', (req, res) => {
 /*
     CREATE COURSE
     req.body = {
-        "uid": "aaa1a",
-        "data": {
-            "links": [],
-            "quizzes": [],
-            "summary": "Demo Course",
-            "tags": "demo course",
-            "title": "Demo"
-        }
+        "links": [],
+        "quizzes": [],
+        "summary": "Demo Course",
+        "tags": "demo course",
+        "title": "Demo"
     }
 */
 
@@ -298,6 +295,24 @@ app.get('/fetchProfile', (req,res) => {
     })
 })
 //////////////////////////////////////////////////////////////////////////////////////////
+
+
+// GET AVATARS
+
+app.get('/getAvatars', (req, res) => {
+    db.collection('prepup').doc('profiles').get()
+    .then(doc => {
+        const data = doc.data()
+        let dataToSend = {}
+        for(key in data) {
+            dataToSend[key] = data[key]['avatar']
+        }
+        res.status(200).json(dataToSend)
+    })
+    .catch(err => {
+        res.status(400).json(err)
+    })
+})
 
 
 ///////////////////////                     CREATE QUIZ    /////////////////////////
