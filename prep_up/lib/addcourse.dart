@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart';
@@ -83,82 +84,150 @@ class _AddCourseState extends State<AddCourse> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Add Course'),
+      ),
       body: SafeArea(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                decoration: InputDecoration(hintText: 'Title'),
-                onChanged: (value) {
-                  title = value;
-                },
-                validator: (value) {
-                  if (value.isEmpty) return 'Enter Title';
-                  return null;
-                },
-              ),
-              TextFormField(
-                decoration: InputDecoration(hintText: 'Summary'),
-                onChanged: (value) {
-                  summary = value;
-                },
-                validator: (value) {
-                  if (value.isEmpty) return 'Enter Summary';
-                  return null;
-                },
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
                 children: [
-                  Flexible(
-                    child: TextFormField(
-                      decoration: InputDecoration(hintText: 'Tags'),
-                      controller: tagsController,
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Title',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20),
+                        ),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20),
+                        ),
+                        borderSide: BorderSide(color: Colors.blue),
+                      ),
                     ),
-                  ),
-                  RaisedButton(
-                    child: Text('Add'),
-                    onPressed: () {
-                      setState(() {
-                        tags.add(tagsController.text);
-                        tagsController.text = '';
-                      });
+                    onChanged: (value) {
+                      title = value;
                     },
+                    validator: (value) {
+                      if (value.isEmpty) return 'Enter Title';
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Summary',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20),
+                        ),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20),
+                        ),
+                        borderSide: BorderSide(color: Colors.blue),
+                      ),
+                    ),
+                    onChanged: (value) {
+                      summary = value;
+                    },
+                    validator: (value) {
+                      if (value.isEmpty) return 'Enter Summary';
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Flexible(
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            labelText: 'Tags',
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                              borderSide: BorderSide(color: Colors.blue),
+                            ),
+                          ),
+                          controller: tagsController,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      RaisedButton(
+                        child: Text('Add'),
+                        onPressed: () {
+                          setState(() {
+                            tags.add(tagsController.text);
+                            tagsController.text = '';
+                          });
+                        },
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Tags(
+                    itemCount: tags.length,
+                    itemBuilder: (int index) {
+                      return ItemTags(
+                        index: index,
+                        title: tags[index],
+                        removeButton: ItemTagsRemoveButton(onRemoved: () {
+                          setState(() {
+                            tags.removeAt(index);
+                          });
+                          return true;
+                        }),
+                      );
+                    },
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  filesDisplay(),
+                  RaisedButton(
+                    child: Text('Select Files'),
+                    onPressed: () {
+                      filePicker();
+                    },
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState.validate()) {
+                        submitData();
+                      }
+                    },
+                    child: Text('Submit'),
                   )
                 ],
               ),
-              Tags(
-                itemCount: tags.length,
-                itemBuilder: (int index) {
-                  return ItemTags(
-                    index: index,
-                    title: tags[index],
-                    removeButton: ItemTagsRemoveButton(onRemoved: () {
-                      setState(() {
-                        tags.removeAt(index);
-                      });
-                      return true;
-                    }),
-                  );
-                },
-              ),
-              filesDisplay(),
-              RaisedButton(
-                child: Text('Select Files'),
-                onPressed: () {
-                  filePicker();
-                },
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState.validate()) {
-                    submitData();
-                  }
-                },
-                child: Text('Submit'),
-              )
-            ],
+            ),
           ),
         ),
       ),

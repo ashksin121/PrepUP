@@ -1,5 +1,6 @@
 import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
+import 'package:prep_up/addcourse.dart';
 
 class Teacher extends StatefulWidget {
   @override
@@ -34,6 +35,34 @@ class _TeacherState extends State<Teacher> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: ListView(
+        children: [
+          item(
+            'Demo Course6',
+            'IN REVIEW',
+          ),
+          item(
+            'Demo Course5',
+            'ACCEPTED',
+          ),
+          item(
+            'Demo Course4',
+            'ACCEPTED',
+          ),
+          item(
+            'Demo Course3',
+            'REJECTED',
+          ),
+          item(
+            'Demo Course2',
+            'ACCEPTED',
+          ),
+          item(
+            'Demo Course1',
+            'ACCEPTED',
+          ),
+        ],
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionBubble(
         items: <Bubble>[
@@ -45,6 +74,9 @@ class _TeacherState extends State<Teacher> with SingleTickerProviderStateMixin {
             icon: Icons.add,
             onPress: () {
               _animationController.reverse();
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return AddCourse();
+              }));
             },
           ),
           Bubble(
@@ -68,6 +100,35 @@ class _TeacherState extends State<Teacher> with SingleTickerProviderStateMixin {
       ),
     );
   }
+}
+
+Widget item(String courseTitle, String status) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+    child: ListTile(
+      leading: Icon(Icons.library_books),
+      title: Text(
+        courseTitle,
+        style: TextStyle(fontSize: 18),
+      ),
+      subtitle: statusOfCourse(status),
+    ),
+  );
+}
+
+Widget statusOfCourse(String status) {
+  Color v;
+  if (status == "REJECTED")
+    v = Colors.red;
+  else if (status == "ACCEPTED")
+    v = Colors.green;
+  else
+    v = Colors.blue;
+
+  return Text(
+    status,
+    style: TextStyle(color: v, fontWeight: FontWeight.bold),
+  );
 }
 
 //

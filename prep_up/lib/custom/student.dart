@@ -17,6 +17,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
+import 'package:prep_up/teacher.dart';
 import 'dart:convert';
 import './StudentCourses.dart';
 import './cards.dart';
@@ -77,7 +78,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     // ),
 
     CarouselDemo(),
-    AddCourse(),
+    Teacher(),
     ProfilePage(),
     // Text(
     //   'Index 1: Business',
