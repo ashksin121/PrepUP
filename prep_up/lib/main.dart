@@ -6,6 +6,7 @@ import 'package:prep_up/addcourse.dart';
 import './custom/signin.dart';
 import 'custom/student.dart';
 import 'custom/cards.dart';
+import './custom/profile.dart';
 
 void main() {
   runApp(MyApp());
