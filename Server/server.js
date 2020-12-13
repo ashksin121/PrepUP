@@ -53,17 +53,19 @@ app.get('/getAllCourses', (req, res) => {
     }
 */
 
-app.post('/createCourse', (req, res) => {
+app.post('/createCourse/:uid', (req, res) => {
     db.collection('prepup').doc('courses').get()
     .then(doc => {
         let len = Object.keys(doc.data()).length + 1
         let course = {}
-        let courseId = req.body.uid + "-" + len.toString()
-        let courseBody = req.body.data
+        let courseId = req.params.uid + "-" + len.toString()
+        let courseBody = req.body
+        console.log(req.body)
         courseBody['status'] = "REVIEW"
-        courseBody['instructorId'] = req.body.uid
+        courseBody['instructorId'] = req.params.uid
         courseBody['numberOfStudents'] = 0
         course[courseId] = courseBody
+        console.log(course)
         db.collection('prepup').doc('courses').set(
             course, { merge: true }
         ).then(doc => {
@@ -77,7 +79,7 @@ app.post('/createCourse', (req, res) => {
         })
     })
     .catch(err => {
-        console.log("Error: ", err);
+        console.log("Err: ", err);
         res.status(400).json(err)
     })
 })
