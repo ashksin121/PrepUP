@@ -4,7 +4,7 @@ import 'dart:core';
 import 'package:http/http.dart' as http;
 
 class NetworkManager {
-  String baseURL = "https://c429a79b0a1e.ngrok.io";
+  String baseURL = "http://ec78ac1ce759.ngrok.io";
 
   Future<void> createCourse(String title, String summary, List<String> tags,
       List<String> docs) async {

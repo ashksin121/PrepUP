@@ -20,6 +20,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import './StudentCourses.dart';
 import './cards.dart';
+import '../addcourse.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -75,10 +76,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     // ),
 
     CarouselDemo(),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
+    AddCourse(),
+    // Text(
+    //   'Index 1: Business',
+    //   style: optionStyle,
+    // ),
     Text(
       'Index 2: School',
       style: optionStyle,

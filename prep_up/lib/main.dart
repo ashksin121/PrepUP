@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:prep_up/addcourse.dart';
+import 'package:prep_up/addcourse.dart';
 // import 'package:prep_up/home.dart';
 // import 'package:prep_up/signin.dart';
 // import 'package:prep_up/teacher.dart';
