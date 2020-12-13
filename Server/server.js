@@ -282,7 +282,7 @@ app.post('/createProfile', (req,res) => {
 // {
 //     "uid": "aaa1a",
 // }
-app.get('/fetchProfile', (req,res) => {
+app.post('/fetchProfile', (req,res) => {
     var uid = req.body.uid;
     db.collection('prepup').doc('profiles').get()
     .then(doc => {

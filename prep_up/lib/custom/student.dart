@@ -73,6 +73,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     //   'Index 0: Home',
     //   style: optionStyle,
     // ),
+
     CarouselDemo(),
     Text(
       'Index 1: Business',
@@ -111,29 +112,25 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
+        title: const Text('PrepUP'),
       ),
-      body: _selectedIndex == -1
-          ? Column(
-              children: [CarouselDemo()],
-            )
-          : _widgetOptions.elementAt(_selectedIndex),
+      body: _widgetOptions.elementAt(_selectedIndex),
 
       // child: _widgetOptions.elementAt(_selectedIndex),
       // ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.school),
+            label: 'Learn',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
-            label: 'Business',
+            label: 'Teach',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
+            icon: Icon(Icons.home),
+            label: 'My Profile',
           ),
         ],
         currentIndex: _selectedIndex,
