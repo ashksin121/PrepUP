@@ -1,6 +1,8 @@
 import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
+import 'package:prep_up/addQuiz.dart';
 import 'package:prep_up/addcourse.dart';
+import 'package:prep_up/courseDetails.dart';
 
 class Teacher extends StatefulWidget {
   @override
@@ -40,26 +42,32 @@ class _TeacherState extends State<Teacher> with SingleTickerProviderStateMixin {
           item(
             'Demo Course6',
             'IN REVIEW',
+            context,
           ),
           item(
             'Demo Course5',
             'ACCEPTED',
+            context,
           ),
           item(
             'Demo Course4',
             'ACCEPTED',
+            context,
           ),
           item(
             'Demo Course3',
             'REJECTED',
+            context,
           ),
           item(
             'Demo Course2',
             'ACCEPTED',
+            context,
           ),
           item(
             'Demo Course1',
             'ACCEPTED',
+            context,
           ),
         ],
       ),
@@ -74,9 +82,14 @@ class _TeacherState extends State<Teacher> with SingleTickerProviderStateMixin {
             icon: Icons.add,
             onPress: () {
               _animationController.reverse();
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return AddCourse();
-              }));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return AddCourse();
+                  },
+                ),
+              );
             },
           ),
           Bubble(
@@ -87,6 +100,14 @@ class _TeacherState extends State<Teacher> with SingleTickerProviderStateMixin {
             icon: Icons.add,
             onPress: () {
               _animationController.reverse();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return AddQuiz();
+                  },
+                ),
+              );
             },
           ),
         ],
@@ -102,7 +123,7 @@ class _TeacherState extends State<Teacher> with SingleTickerProviderStateMixin {
   }
 }
 
-Widget item(String courseTitle, String status) {
+Widget item(String courseTitle, String status, BuildContext context) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 10.0),
     child: ListTile(
@@ -112,6 +133,18 @@ Widget item(String courseTitle, String status) {
         style: TextStyle(fontSize: 18),
       ),
       subtitle: statusOfCourse(status),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return CourseDetails(
+                title: courseTitle,
+              );
+            },
+          ),
+        );
+      },
     ),
   );
 }
@@ -130,27 +163,3 @@ Widget statusOfCourse(String status) {
     style: TextStyle(color: v, fontWeight: FontWeight.bold),
   );
 }
-
-//
-//Column(
-//mainAxisAlignment: MainAxisAlignment.end,
-//children: <Widget>[
-//Transform(
-//transform: Matrix4.translationValues(
-//0.0,
-//_translateButton.value * 3.0,
-//0.0,
-//),
-//child: addcourse(),
-//),
-//Transform(
-//transform: Matrix4.translationValues(
-//0.0,
-//_translateButton.value * 2.0,
-//0.0,
-//),
-//child: addquiz(),
-//),
-//toggle(),
-//],
-//)
