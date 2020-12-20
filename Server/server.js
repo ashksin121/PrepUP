@@ -287,6 +287,9 @@ app.post('/fetchProfile', (req,res) => {
     db.collection('prepup').doc('profiles').get()
     .then(doc => {
         console.log(doc.data()[uid])
+        if(doc.data()[uid]==undefined)
+        res.status(404).json("not found")
+        else
         res.status(200).json(doc.data()[uid])
     })
     .catch(err => {

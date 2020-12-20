@@ -1,7 +1,25 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../provider/google_sign_in.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:prep_up/networkManager.dart';
+
+void fx() async {
+  print("hello from googel");
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final User user = auth.currentUser;
+  final uid = user.uid;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  log(uid);
+  String a = await NetworkManager().fetchProfile(uid);
+  print(a);
+  print(jsonDecode(a));
+}
 
 class GoogleSignupButtonWidget extends StatelessWidget {
   @override
@@ -21,7 +39,8 @@ class GoogleSignupButtonWidget extends StatelessWidget {
           onPressed: () {
             final provider =
                 Provider.of<GoogleSignInProvider>(context, listen: false);
-            provider.login();
+            provider.login().then((value) => fx());
+            // fx();
           },
         ),
       );
