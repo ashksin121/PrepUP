@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prep_up/addQuiz.dart';
 import 'package:prep_up/addcourse.dart';
+import 'package:prep_up/bazaar.dart';
 import 'package:prep_up/courseDetails.dart';
 import 'package:prep_up/custom/quiz.dart';
 // import 'package:prep_up/home.dart';

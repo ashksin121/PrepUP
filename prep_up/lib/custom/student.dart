@@ -17,6 +17,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
+import 'package:prep_up/bazaar.dart';
 import 'package:prep_up/teacher.dart';
 import 'dart:convert';
 import './StudentCourses.dart';
@@ -80,6 +81,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     CarouselDemo(),
     Teacher(),
     ProfilePage(),
+    Bazaar(),
     // Text(
     //   'Index 1: Business',
     //   style: optionStyle,
@@ -137,6 +139,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             icon: Icon(Icons.home),
             label: 'My Profile',
           ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_bag), label: 'Bazaar')
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
