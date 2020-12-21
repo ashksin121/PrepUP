@@ -1,8 +1,10 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const runMiddleware = require('run-middleware');
 
 const app = express()
+runMiddleware(app);
 
 const admin = require('firebase-admin')
 
@@ -259,10 +261,11 @@ app.patch('/addCompletedCourse/:userId', (req, res) => {
 //         "coursesIncomplete": ["c203","c204"],
 //         "coursesUploaded": [],
 //         "name": "Abhi",
-//         "pepCoins": 1100
+//         "prepCoins": 1100
 //     }
 // }
 app.post('/createProfile', (req,res) => {
+    console.log(req.body)
     var prepRef = db.collection('prepup').doc('profiles');
     var uid = req.body.uid;
     var content={};
@@ -281,12 +284,35 @@ app.post('/createProfile', (req,res) => {
 // SAMPLE
 // {
 //     "uid": "aaa1a",
+//     "name": "abhi",
+//     "email": "aa@aa"
 // }
 app.post('/fetchProfile', (req,res) => {
     var uid = req.body.uid;
+    var email = req.body.email;
+    var Name = req.body.name;
     db.collection('prepup').doc('profiles').get()
     .then(doc => {
         console.log(doc.data()[uid])
+        
+        var body = {
+                        "uid": uid,
+                        "data": {
+                            "avatar": "",
+                            "coursesCompleted": [],
+                            "coursesIncomplete": [],
+                            "coursesUploaded": [],
+                            "name": Name,
+                            "email": email,
+                            "prepCoins": 100
+                        }
+                }
+        if(doc.data()[uid]==undefined)
+        {
+            req.runMiddleware("/createProfile",{method:'post',body:body});
+            res.status(200).json("profile created");
+        }
+        else
         res.status(200).json(doc.data()[uid])
     })
     .catch(err => {

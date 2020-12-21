@@ -10,8 +10,13 @@ import './custom/signin.dart';
 import 'custom/student.dart';
 import 'custom/cards.dart';
 import './custom/profile.dart';
+import './custom/page/home_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(MyApp());
 }
 
@@ -24,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Quiz(),
+      home: HomePage(),
     );
   }
 }

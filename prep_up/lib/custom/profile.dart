@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:provider/provider.dart';
+import './provider/google_sign_in.dart';
 
 var profileDetails = {
   "coursesCompleted": ["aaaaaa1a-5", "aaa1a-8"],
@@ -70,6 +72,14 @@ class MapScreenState extends State<ProfilePage>
         children: <Widget>[
           Column(
             children: <Widget>[
+              ElevatedButton(
+                onPressed: () {
+                  final provider =
+                      Provider.of<GoogleSignInProvider>(context, listen: false);
+                  provider.logout();
+                },
+                child: Text('Logout'),
+              ),
               new Container(
                 height: 250.0,
                 color: Colors.white,
