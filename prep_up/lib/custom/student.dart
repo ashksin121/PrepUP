@@ -86,7 +86,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     //   style: optionStyle,
     // ),
     // Text(
-    //   'Index 2: School',
+    //   'Index BottomNavigationBarType: School',
     //   style: optionStyle,
     // ),
   ];
@@ -125,6 +125,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       // child: _widgetOptions.elementAt(_selectedIndex),
       // ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.school),

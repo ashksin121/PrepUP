@@ -26,7 +26,7 @@ class _BazaarState extends State<Bazaar> {
               item(
                   'https://cdn.shopify.com/s/files/1/0057/8938/4802/products/1neon_eb475e1c-ea69-458d-84b7-9312355e80a8.png?v=1587724180',
                   'Boat Headphones',
-                  'ACTIVE')
+                  'ACTIVE'),
             ],
           ),
         ),

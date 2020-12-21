@@ -35,7 +35,7 @@ class MapScreenState extends State<ProfilePage>
       Map data = {"uid": "Tc5mg8twPOPVPIWXHd0AycemlSb2"};
       String body = json.encode(data);
       final profileResponse = await http.post(
-        'http://ec78ac1ce759.ngrok.io/fetchProfile',
+        'https://prepup-api.herokuapp.com/fetchProfile',
         headers: {"Content-Type": "application/json"},
         body: body,
       );
@@ -51,7 +51,7 @@ class MapScreenState extends State<ProfilePage>
               .length
               .toString();
           pepCoins =
-              (profileDetails["pepCoins"] as List<String>).length.toString();
+              (profileDetails["prepCoins"] as List<String>).length.toString();
           upload = (profileDetails["coursesUploaded"] as List<String>)
               .length
               .toString();
@@ -373,7 +373,7 @@ class MapScreenState extends State<ProfilePage>
                               Expanded(
                                 child: Container(
                                   child: new Text(
-                                    'PepCoins',
+                                    'PrepCoins',
                                     style: TextStyle(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold),

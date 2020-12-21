@@ -57,14 +57,14 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
     print("hello");
     void fetchAlbum() async {
       final response =
-          await http.get('http://0966f8c2615c.ngrok.io/getAllCourses');
+          await http.get('https://prepup-api.herokuapp.com/getAllCourses');
       // final responseAvatars =
       //     await http.get('http://0966f8c2615c.ngrok.io/getAvatars');
       Map data = {"uid": "Tc5mg8twPOPVPIWXHd0AycemlSb2"};
       String body = json.encode(data);
 
       final profileResponse = await http.post(
-        'http://0966f8c2615c.ngrok.io/fetchProfile',
+        'https://prepup-api.herokuapp.com/fetchProfile',
         headers: {"Content-Type": "application/json"},
         body: body,
       );
@@ -289,22 +289,24 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
               }),
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: allCourses.map((url) {
-            int index = allCourses.indexOf(url);
-            return Container(
-              width: 8.0,
-              height: 8.0,
-              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: _current == index
-                    ? Color.fromRGBO(0, 0, 0, 0.9)
-                    : Color.fromRGBO(0, 0, 0, 0.4),
-              ),
-            );
-          }).toList(),
-        ),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: allCourses.length > 0
+                ? allCourses.map((url) {
+                    int index = allCourses.indexOf(url);
+                    return Container(
+                      width: 8.0,
+                      height: 8.0,
+                      margin:
+                          EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: _current == index
+                            ? Color.fromRGBO(0, 0, 0, 0.9)
+                            : Color.fromRGBO(0, 0, 0, 0.4),
+                      ),
+                    );
+                  }).toList()
+                : ""),
         Center(
             child: Text(
           "Completed",
