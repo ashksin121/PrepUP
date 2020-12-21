@@ -19,7 +19,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 import 'package:prep_up/teacher.dart';
 import 'dart:convert';
-import './StudentCourses.dart';
 import './cards.dart';
 import '../addcourse.dart';
 import './profile.dart';

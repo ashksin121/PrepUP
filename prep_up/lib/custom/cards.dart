@@ -57,14 +57,14 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
     print("hello");
     void fetchAlbum() async {
       final response =
-          await http.get('http://ec78ac1ce759.ngrok.io/getAllCourses');
+          await http.get('http://0966f8c2615c.ngrok.io/getAllCourses');
       // final responseAvatars =
-      //     await http.get('http://ec78ac1ce759.ngrok.io/getAvatars');
+      //     await http.get('http://0966f8c2615c.ngrok.io/getAvatars');
       Map data = {"uid": "Tc5mg8twPOPVPIWXHd0AycemlSb2"};
       String body = json.encode(data);
 
       final profileResponse = await http.post(
-        'http://ec78ac1ce759.ngrok.io/fetchProfile',
+        'http://0966f8c2615c.ngrok.io/fetchProfile',
         headers: {"Content-Type": "application/json"},
         body: body,
       );

@@ -10,15 +10,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:prep_up/networkManager.dart';
 
 void fx() async {
-  print("hello from googel");
   final FirebaseAuth auth = FirebaseAuth.instance;
   final User user = auth.currentUser;
   final uid = user.uid;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   log(uid);
-  String a = await NetworkManager().fetchProfile(uid);
-  print(a);
-  print(jsonDecode(a));
+  await NetworkManager().fetchProfile(uid, user.displayName, user.email);
 }
 
 class GoogleSignupButtonWidget extends StatelessWidget {

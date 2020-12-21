@@ -4,7 +4,7 @@ import 'dart:core';
 import 'package:http/http.dart' as http;
 
 class NetworkManager {
-  String baseURL = "http://6cab3a57b4d5.ngrok.io";
+  String baseURL = "http://0966f8c2615c.ngrok.io";
 
   Future<void> createCourse(String title, String summary, List<String> tags,
       List<String> docs) async {
@@ -40,8 +40,8 @@ class NetworkManager {
     print('body' + response.body);
   }
 
-  Future<String> fetchProfile(String uid) async {
-    final data = jsonEncode({"uid": uid});
+  Future<String> fetchProfile(String uid, String name, String email) async {
+    final data = jsonEncode({"uid": uid, "name": name, "email": email});
     final response = await http.post(
       '$baseURL/fetchProfile',
       headers: <String, String>{
@@ -50,8 +50,8 @@ class NetworkManager {
       },
       body: data,
     );
-    // print(response.body);
-    return response.body;
+    print(response.body);
+    return jsonDecode(response.body);
     // if (response.statusCode == 404) return {"status": "error"};
     // return jsonDecode(response.body);
   }
